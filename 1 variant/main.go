@@ -32,8 +32,7 @@ type User struct {
 
 
 var (
-     clients = make(map[User]*websocket.Conn)
-    //  clients   = make(map[*websocket.Conn]bool) // connected clients
+     clients = make(map[User]*websocket.Conn)  // connected clients
      broadcast = make(chan Message)             // broadcast channel
 )
 
@@ -53,8 +52,8 @@ var upgrader = websocket.Upgrader{
           func main() {
 
           	// Create a simple file server
-          	// fs := http.FileServer(http.Dir("../public"))
-          	// http.Handle("/", fs)
+          	fs := http.FileServer(http.Dir("./public"))
+          	http.Handle("/", fs)
 
           	// Configure websocket route
           	http.HandleFunc("/ws", handleConnections)
@@ -85,7 +84,7 @@ var upgrader = websocket.Upgrader{
                user.Id = r.URL.Query()["user"][0]  // USER id
               //  user.Id = "12"
 
-            	// Register our new client
+            	// Записываем нового юзера в массив подключенных 
                clients[user] = ws
 
               fmt.Println("CONNECTED ->" , clients, "\n")
@@ -94,6 +93,7 @@ var upgrader = websocket.Upgrader{
             		var msg Message
             		// Read in a new message as JSON and map it to a Message object
             		err := ws.ReadJSON(&msg)
+			
             		if err != nil {
             			log.Printf("error: %v", err)
             			delete(clients, user)
