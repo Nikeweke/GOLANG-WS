@@ -49,7 +49,8 @@
         |
         |--------------------------------------------------------------------------
         */
-        var socket = new WebSocket('ws://localhost:8000/ws?user=12')
+        var socket = new WebSocket('ws://localhost:8000/ws?user=12')                    // on local
+        // var socket = new WebSocket('ws://' + window.location.host + '/ws?user=12');  // on server
 
 
 /*
