@@ -1,4 +1,4 @@
-## GOLANG-WS
+## GOLANG-WebSockets
 With gorilla kit WS
 
 ### Here are two variants
